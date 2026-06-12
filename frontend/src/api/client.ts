@@ -1,4 +1,5 @@
 import { apiUrl } from './config';
+import { fetchApi } from './fetchApi';
 
 export interface Owner {
   name: string;
@@ -48,7 +49,7 @@ export interface ListSearchResult {
 }
 
 export async function searchCard(cardName: string): Promise<SearchResult> {
-  const response = await fetch(apiUrl(`/api/search?q=${encodeURIComponent(cardName)}`));
+  const response = await fetchApi(apiUrl(`/api/search?q=${encodeURIComponent(cardName)}`));
 
   if (!response.ok) {
     const data = await response.json().catch(() => ({}));
@@ -59,7 +60,7 @@ export async function searchCard(cardName: string): Promise<SearchResult> {
 }
 
 export async function searchCardList(list: string): Promise<ListSearchResult> {
-  const response = await fetch(apiUrl('/api/search/list'), {
+  const response = await fetchApi(apiUrl('/api/search/list'), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ list }),
