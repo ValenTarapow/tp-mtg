@@ -1,5 +1,11 @@
 {
   "installCommand": "npm install --prefix frontend",
   "buildCommand": "npm run build --prefix frontend",
-  "outputDirectory": "frontend/dist"
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://tp-mtg.onrender.com/api/:path*"
+    }
+  ]
 }
