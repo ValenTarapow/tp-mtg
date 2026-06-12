@@ -1,0 +1,16 @@
+{
+  "name": "mtg-group-collection-search",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Buscar cartas de Magic en colecciones públicas de Moxfield del grupo",
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
