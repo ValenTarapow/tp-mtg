@@ -12,6 +12,8 @@ services:
       mountPath: /var/data
       sizeGB: 1
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: NODE_ENV
         value: production
       - key: DB_PATH
@@ -21,6 +23,6 @@ services:
       - key: SYNC_MISSING_ON_START
         value: true
       - key: SYNC_ON_START
-        value: true
+        value: false
       - key: FRONTEND_URL
         sync: false

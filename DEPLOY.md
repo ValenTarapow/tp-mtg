@@ -47,14 +47,17 @@ FRONTEND_URL=https://TU-APP.vercel.app
 4. **Environment Variables**:
 
 ```
+NODE_VERSION=20.18.0
 DB_PATH=/var/data/mtg.db
 SEARCH_MODE=cache
 SYNC_MISSING_ON_START=true
-SYNC_ON_START=true
+SYNC_ON_START=false
 FRONTEND_URL=https://TU-APP.vercel.app
 ```
 
-`SYNC_ON_START=true` solo la primera vez. Cuando termine la sync inicial, cambialo a `false`.
+> **Importante:** usá Node **20**, no 26. `better-sqlite3` no es compatible con Node 26 en Render.
+
+`SYNC_MISSING_ON_START=true` sincroniza miembros sin datos al arrancar. `SYNC_ON_START=true` fuerza sync completa de todos (lento, solo si hace falta).
 
 5. Copiá la URL del servicio (ej: `https://tp-mtg-api.onrender.com`)
 

@@ -6,6 +6,12 @@ import { startDailySyncJob } from './jobs/dailySync.js';
 import searchRouter from './routes/search.js';
 import { syncAllUsers, syncMissingUsers } from './services/sync.js';
 
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled rejection:', reason);
+});
+
+console.log(`Node ${process.version} | PORT=${process.env.PORT || 3001}`);
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
