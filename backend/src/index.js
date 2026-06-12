@@ -38,8 +38,9 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-app.listen(PORT, () => {
-  console.log(`MTG Collection Search API running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`MTG Collection Search API running on port ${PORT}`);
+  console.log(`DB_PATH=${process.env.DB_PATH || 'default'}`);
   startDailySyncJob();
 
   if (process.env.SYNC_ON_START === 'true') {
