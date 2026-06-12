@@ -5,16 +5,37 @@ import { fileURLToPath } from 'url';
 import { MEMBERS } from '../config/members.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-let dbPath = process.env.DB_PATH || path.join(__dirname, '../../data/mtg.db');
 
-try {
-  fs.mkdirSync(path.dirname(dbPath), { recursive: true });
-  fs.accessSync(path.dirname(dbPath), fs.constants.W_OK);
-} catch (err) {
-  console.warn(`DB dir not writable (${path.dirname(dbPath)}): ${err.message}. Using /tmp/mtg.db`);
-  dbPath = '/tmp/mtg.db';
+function isWritableDir(dir) {
+  try {
+    fs.accessSync(dir, fs.constants.W_OK);
+    return fs.existsSync(dir);
+  } catch {
+    return false;
+  }
 }
 
+function resolveDbPath() {
+  const configured = process.env.DB_PATH || path.join(__dirname, '../../data/mtg.db');
+  const dir = path.dirname(configured);
+
+  if (isWritableDir(dir)) {
+    return configured;
+  }
+
+  if (configured.startsWith('/var/data')) {
+    console.warn(
+      'Disco /var/data no montado en Render. Usando /tmp/mtg.db (los datos no persisten entre deploys).',
+    );
+    console.warn('Agregá un Disk en Render con mount path /var/data para persistencia.');
+    return '/tmp/mtg.db';
+  }
+
+  fs.mkdirSync(dir, { recursive: true });
+  return configured;
+}
+
+const dbPath = resolveDbPath();
 console.log(`Opening database at ${dbPath}`);
 const db = new Database(dbPath);
 
