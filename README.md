@@ -68,7 +68,7 @@ group_members (group_id, user_id)      -- futuro: múltiples grupos
 
 ## Deploy en producción
 
-Frontend en **Vercel**, backend en **Railway** (o Render). Guía paso a paso: [DEPLOY.md](./DEPLOY.md)
+Frontend en **Vercel**, backend en **Render**. Guía paso a paso: [DEPLOY.md](./DEPLOY.md)
 
 ## Inicio rápido
 

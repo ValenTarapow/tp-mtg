@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: tp-mtg-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: starter
+    healthCheckPath: /api/health
+    disk:
+      name: sqlite-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DB_PATH
+        value: /var/data/mtg.db
+      - key: SEARCH_MODE
+        value: cache
+      - key: SYNC_MISSING_ON_START
+        value: true
+      - key: SYNC_ON_START
+        value: true
+      - key: FRONTEND_URL
+        sync: false
