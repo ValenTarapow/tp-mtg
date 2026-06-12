@@ -36,7 +36,7 @@ FRONTEND_URL=https://TU-APP.vercel.app
 | Campo | Valor |
 |-------|-------|
 | Root Directory | `backend` |
-| Build Command | `npm install` |
+| Build Command | `npm install && npm rebuild better-sqlite3` |
 | Start Command | `npm start` |
 | Plan | Starter (necesario para disco) |
 

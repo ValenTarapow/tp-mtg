@@ -5,10 +5,17 @@ import { fileURLToPath } from 'url';
 import { MEMBERS } from '../config/members.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dbPath = process.env.DB_PATH || path.join(__dirname, '../../data/mtg.db');
+let dbPath = process.env.DB_PATH || path.join(__dirname, '../../data/mtg.db');
 
-fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+try {
+  fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+  fs.accessSync(path.dirname(dbPath), fs.constants.W_OK);
+} catch (err) {
+  console.warn(`DB dir not writable (${path.dirname(dbPath)}): ${err.message}. Using /tmp/mtg.db`);
+  dbPath = '/tmp/mtg.db';
+}
 
+console.log(`Opening database at ${dbPath}`);
 const db = new Database(dbPath);
 
 db.pragma('journal_mode = WAL');
